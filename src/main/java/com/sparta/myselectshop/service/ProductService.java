@@ -9,7 +9,6 @@ import com.sparta.myselectshop.repository.FolderRepository;
 import com.sparta.myselectshop.repository.ProductFolderRepository;
 import com.sparta.myselectshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.SortDirection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -90,7 +87,7 @@ public class ProductService {
         );
 
         if (!product.getUser().getId().equals(user.getId())
-        || !folder.getUser().getId().equals(user.getId())) {
+                || !folder.getUser().getId().equals(user.getId())) {
             throw new IllegalArgumentException("회원님의 관심상품이 아니거나, 회원님의 폴더가 아닙니다.");
         }
 
@@ -100,7 +97,7 @@ public class ProductService {
             throw new IllegalArgumentException("중복된 폴더입니다.");
         }
 
-        productFolderRepository.save(new ProductFolder(product,folder));
+        productFolderRepository.save(new ProductFolder(product, folder));
     }
 
     public Page<ProductResponseDto> getProductsInFolder(Long folderId, int page, int size, String sortBy, boolean isAsc, User user) {
